@@ -7,7 +7,7 @@ function html() {
 }
 
 function js() {
-  return src('src/assets/js/index.js')
+  return src('src/index.js')
     .pipe(named())
     .pipe(
       webpack({
@@ -25,11 +25,15 @@ function js() {
                   presets: ['@babel/preset-env', '@babel/preset-react']
                 }
               }
+            },
+            {
+              test: /\.(css | scss)$/,
+              use: ['style-loader', 'css-loader', 'sass-loader']
             }
           ]
         }
       })
     )
-    .pipe(dest('public/assets/js/'))
+    .pipe(dest('public/'))
 }
 exports.default = parallel(html, js)
