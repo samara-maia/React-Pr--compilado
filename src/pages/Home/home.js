@@ -7,7 +7,7 @@ export class Home extends Component {
     return (
       <div>
         <p>página Home</p>
-        <Link to="/react2/public/Sobre">Ir paga a página sobre</Link>
+        <Link to="/Sobre">Ir paga a página sobre</Link>
       </div>
     )
   }
