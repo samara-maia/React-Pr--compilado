@@ -6,27 +6,40 @@ export class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      ip: ''
+      lista: [
+        { nome: 'Bonieky', idade: 90 },
+        { nome: 'Pedro', idade: 10 },
+        { nome: 'Fulano', idade: 50 }
+      ]
     }
   }
   componentDidMount() {
-    fetch('http://ip.jsontest.com/')
-      .then(r => {
-        return r.json()
-      })
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(r => r.json())
       .then(json => {
-        this.setState({ ip: json.ip })
+        this.setState({ lista: json })
       })
-  }
+  } //requisição
 
   render() {
     return (
       <div>
         <h3>Página Home...</h3>
-        <div>
-          {this.state.ip == '' && <i>Carregando...</i>}
-          {this.state.ip != '' && <p>Seu IP é: {this.state.ip}</p>}
-        </div>
+
+        {this.state.lista.length == 0 && <i>Carregando...</i>}
+
+        {this.state.lista.length > 0 && (
+          <ul>
+            {this.state.lista.map(item => {
+              return (
+                <li>
+                  {item.nome} - {item.idade} anos
+                </li>
+              )
+            })}
+          </ul>
+        )}
+
         <Link to="/sobre">Ir para página sobre</Link>
       </div>
     )
